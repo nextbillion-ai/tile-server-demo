@@ -1,0 +1,9 @@
+{
+  "name": "tile-server-demo",
+  "scripts":{
+    "serve": "http-server ."
+  },
+  "dependencies": {
+    "http-server": "^13.0.2"
+  }
+}

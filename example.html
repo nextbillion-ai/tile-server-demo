@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Use mapbox-gl render</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+
+<div id="map"></div>
+
+<script>
+
+	// ADD YOUR ACCESS TOKEN FROM MAPBOXGL
+    // https://docs.mapbox.com/help/getting-started/access-tokens/
+    const MAPBOX_TOKEN = 'pk.eyJ1Ijoia2FpLWxpdSIsImEiOiJjazduNmtxcTkwcHlyM2RxNjVqdzBqcmdjIn0.ElP1f3BdnelgeXuRR4Q3BA'
+
+    // replace it with your own token
+    const YOUR_TOKEN = '[YOUR APIKEY]'
+    function transformRequest(url, resourceType) {
+        if (resourceType === 'SpriteJSON' || resourceType === 'Tile' || resourceType === 'Source') {
+            if(/vt.nextbillion/.test(url)){
+                return {
+                url: url + `?key=${YOUR_TOKEN}`,
+                }
+            }
+        }
+        return { url }
+    }
+
+	mapboxgl.accessToken = MAPBOX_TOKEN;
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // serve your style.json (vt.json in this case) on your server and write the path here
+        style:  `./vt.json`,
+        transformRequest,
+        center: [-79.4512, 43.6568],
+        zoom: 8
+    });
+
+</script>
+
+</body>
+</html>
